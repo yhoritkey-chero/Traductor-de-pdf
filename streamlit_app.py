@@ -7,6 +7,9 @@ import fitz  # PyMuPDF
 from PIL import Image
 from playwright.async_api import async_playwright
 
+# Instalar Chromium automáticamente si estamos en Streamlit Cloud
+os.system("playwright install chromium")
+
 st.set_page_config(page_title="Traductor de PDF a Español", page_icon="📝", layout="centered")
 
 async def translate_images(image_paths, target_dir, log_placeholder, progress_bar):
@@ -36,14 +39,19 @@ async def translate_images(image_paths, target_dir, log_placeholder, progress_ba
                     pass
 
                 # Subir archivo
-                async with page.expect_file_chooser() as fc_info:
-                    file_input = page.locator("input[type='file']")
-                    if await file_input.count() > 0:
-                        await file_input.set_files(img_path)
-                    else:
-                        await page.locator('text="Browse your files"').click()
-                        file_chooser = await fc_info.value
-                        await file_chooser.set_files(img_path)
+                file_input = page.locator("input[type='file']")
+                if await file_input.count() > 0:
+                    await file_input.set_files(img_path)
+                else:
+                    async with page.expect_file_chooser(timeout=5000) as fc_info:
+                        browse_btn = page.locator('button', has_text="Explorar tus archivos")
+                        if await browse_btn.count() == 0:
+                            browse_btn = page.locator('label', has_text="Browse your files")
+                        if await browse_btn.count() == 0:
+                            browse_btn = page.locator('text="Browse your files"')
+                        await browse_btn.first.click()
+                    file_chooser = await fc_info.value
+                    await file_chooser.set_files(img_path)
                 
                 # Esperar el botón de descarga
                 download_btn = page.locator('button', has_text="Descargar traducción")
