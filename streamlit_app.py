@@ -7,8 +7,11 @@ import fitz  # PyMuPDF
 from PIL import Image
 from playwright.async_api import async_playwright
 
-# Instalar Chromium automáticamente si estamos en Streamlit Cloud
-os.system("playwright install chromium")
+@st.cache_resource
+def install_playwright():
+    os.system("playwright install chromium")
+
+install_playwright()
 
 st.set_page_config(page_title="Traductor de PDF a Español", page_icon="📝", layout="centered")
 
