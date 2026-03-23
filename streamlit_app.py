@@ -9,7 +9,7 @@ from playwright.async_api import async_playwright
 
 @st.cache_resource
 def install_playwright():
-    os.system("playwright install chromium")
+    os.system(f"{sys.executable} -m playwright install chromium")
 
 install_playwright()
 
