@@ -9,7 +9,7 @@ from playwright.async_api import async_playwright
 
 @st.cache_resource
 def install_playwright():
-    os.system(f"{sys.executable} -m playwright install chromium")
+    os.system(f"{sys.executable} -m playwright install firefox")
 
 install_playwright()
 
@@ -19,7 +19,7 @@ async def translate_images(image_paths, target_dir, log_placeholder, progress_ba
     translated_paths = []
     async with async_playwright() as p:
         log_placeholder.text("Iniciando navegador web (en segundo plano)...")
-        browser = await p.chromium.launch(headless=True)
+        browser = await p.firefox.launch(headless=True)
         context = await browser.new_context(locale="es-ES")
         page = await context.new_page()
 
