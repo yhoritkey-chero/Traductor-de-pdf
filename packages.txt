@@ -1,5 +1,4 @@
 libnss3
-libxfixes3
 libxss1
 libasound2
 libxrender1
@@ -12,3 +11,5 @@ libatk1.0-0
 libatk-bridge2.0-0
 libgbm1
 libxrandr2
+libdbus-glib-1-2
+libxt6
