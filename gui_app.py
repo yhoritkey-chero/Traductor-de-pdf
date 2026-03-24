@@ -23,7 +23,7 @@ async def translate_images(image_paths, target_dir, log_callback, progress_callb
     translated_paths = []
     async with async_playwright() as p:
         log_callback("Iniciando navegador...")
-        browser = await p.chromium.launch(headless=True)
+        browser = await p.firefox.launch(headless=True)
         context = await browser.new_context(locale="es-ES")
         page = await context.new_page()
 

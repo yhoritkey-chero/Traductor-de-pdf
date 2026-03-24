@@ -12,8 +12,8 @@ async def translate_images(image_paths, target_dir):
     async with async_playwright() as p:
         # Launch browser. Headless=False helps if user needs to solve captcha initially.
         # But we'll use headless=True for automation stability, users can change it if needed.
-        browser = await p.chromium.launch(headless=True)
-        context = await browser.new_context(locale="en-US")
+        browser = await p.firefox.launch(headless=True)
+        context = await browser.new_context(locale="es-ES")
         page = await context.new_page()
 
         for img_path in image_paths:
