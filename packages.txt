@@ -13,3 +13,11 @@ libgbm1
 libxrandr2
 libdbus-glib-1-2
 libxt6
+libxfixes3
+libxcursor1
+libxkbcommon0
+libdrm2
+libx11-xcb1
+libpango-1.0-0
+libcairo2
+libxcb-dri3-0
